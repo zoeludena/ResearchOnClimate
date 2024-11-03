@@ -10,11 +10,11 @@
 
 **Exploratory Data Analysis**
 
-Run the explore_CMIP6_data.py file to generate a variety of graphs of the historical_r1i1p1f1 model output data. Can also use this file as an example of how to generate new spatial plots of any other variables.
+Run the `explore_CMIP6_data.py` file to generate a variety of graphs of the `historical_r1i1p1f1` model output data. Can also use this file as an example of how to generate new spatial plots of any other variables.
 
 **Prepare Data for Model Input**
 
-Use the prepare_data.py file to generate training-ready data files for the emulators. The preprocessing includes variable selection, annual averaging, and feature derivations (ie. diurnal temperature range = tasmax - tasmin).
+Use the `prepare_data.py` file to generate training-ready data files for the emulators. The preprocessing includes variable selection, annual averaging, and feature derivations (ie. `diurnal temperature range = tasmax - tasmin`).
 
 **Data storage structure**
 
