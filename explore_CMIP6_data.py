@@ -281,3 +281,19 @@ plt.show()
 
 #     return
 
+
+# Function for getting CMIP data
+# def get_CMIP(variable, experiment, member):
+#     import glob
+#     files = glob.glob(f"/glade/collections/cmip/CMIP6/CMIP/NCC/NorESM2-LM/{experiment}/{member}/day/{variable}/**/*.nc", recursive=True)
+#     return xr.open_mfdataset(files)[variable]
+
+# Function for getting DAMIP data
+# def get_DAMIP(variable, member):
+#     import glob
+#     files = glob.glob(f'/glade/collections/cmip/CMIP6/DAMIP/NCAR/CESM2/*/{member}/*/{variable}/gn/*/*.nc', recursive=True)
+#     return xr.open_mfdataset(files)[variable]
+
+# Example Usage:
+# clt = get_DAMIP('clt', 'r1i1p1f1')
+# average_variable_eda(clt, 'clt', 'Total Cloud Fraction')
