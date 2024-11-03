@@ -214,3 +214,70 @@ plt.title("Surface Downwelling Shortwave Radiation Timeseries")
 output_filename = "rsds_timeseries.png"
 plt.savefig(f"{output_folder}/{output_filename}")
 plt.show()
+
+
+
+# Function for plotting maps and time series for specified variable
+
+# output_folder = './eda'
+
+# def average_variable_eda(var, var_name, title):
+#     var_1850_1900 = var.sel(time=slice('1850', '1900')).mean('time')
+
+#     fig, ax = plt.subplots(subplot_kw={"projection": ccrs.PlateCarree()})
+#     c = var_1850_1900.plot(
+#         ax=ax,
+#         transform=ccrs.PlateCarree(),
+#         cbar_kwargs={'orientation': 'horizontal'}  # Make the color bar horizontal
+#     )
+#     plt.title(f"Average {title} Between 1850-1900")
+#     ax.coastlines()
+#     plt.subplots_adjust(bottom=0.15)  # Adjust as needed
+#     output_filename = f"avg_{var_name}_1850_1900.png"
+#     plt.savefig(f"{output_folder}/{output_filename}")
+#     plt.show()
+
+#     var_2005_2005 = var.sel(time=slice('2005', '2015')).mean('time')
+
+#     fig, ax = plt.subplots(subplot_kw={"projection": ccrs.PlateCarree()})
+#     c = var_2005_2005.plot(
+#         ax=ax,
+#         transform=ccrs.PlateCarree(),
+#         cbar_kwargs={'orientation': 'horizontal'}  # Make the color bar horizontal
+#     )
+#     plt.title(f"Average {title} Between 2005-2015")
+#     ax.coastlines()
+#     plt.subplots_adjust(bottom=0.15)  # Adjust as needed
+#     output_filename = f"avg_{var_name}_2005_2015.png"
+#     plt.savefig(f"{output_folder}/{output_filename}")
+#     plt.show()
+
+#     difference = var.sel(time=slice('2005', '2015')).mean('time') - var.sel(time=slice('1850', '1900')).mean('time')
+#         #More recent - past
+
+#     fig, ax = plt.subplots(subplot_kw={"projection": ccrs.PlateCarree()})
+#     c = difference.plot(
+#         ax=ax,
+#         transform=ccrs.PlateCarree(),
+#         cbar_kwargs={'orientation': 'horizontal'}  # Make the color bar horizontal
+#     )
+#     plt.title(f"Difference in {title} From 1850-1900 to 2005-2015")
+#     ax.coastlines()
+#     plt.subplots_adjust(bottom=0.15)  # Adjust as needed
+#     output_filename = f"diff_avg_{var_name}.png"
+#     plt.savefig(f"{output_folder}/{output_filename}")
+#     plt.show()
+
+#     weights = np.cos(np.deg2rad(var.lat))
+#     weights.name = "weights"
+    
+#     var_timeseries = var.weighted(weights).mean(['lat', 'lon'])
+
+#     var_timeseries.plot()
+#     plt.title(f"{title} Timeseries")
+#     output_filename = f"{var_name}_timeseries.png"
+#     plt.savefig(f"{output_folder}/{output_filename}")
+#     plt.show()
+
+#     return
+
