@@ -20,15 +20,15 @@ Use the prepare_data.py file to generate training-ready data files for the emula
 
 `/glade/collections/cmip/CMIP6/{MIP}/NCC/NorESM2-LM/{experiment}/{member}/{general variable category}/{variable}/*/*/{variable}/*.nc`
 
-- MIP (Model Intercomparison Projects) : 'CMIP', 'DAMIP', 'ScenarioMIP', 'AerChemMIP'
-- experiment: 
+- `MIP` (Model Intercomparison Projects) : 'CMIP', 'DAMIP', 'ScenarioMIP', 'AerChemMIP'
+- `experiment`
   - CMIP: '1pctCO2', 'abrupt-4xCO2', 'historical', 'piControl'
   - DAMIP: 'hist-GHG', 'hist-aer'
   - ScenarioMIP: 'ssp126', 'ssp245', 'ssp370', 'ssp370-lowNTCF', 'ssp585'
-- member:
+- `member`
   - E.g., ‘r1i1p1f1’, ‘r2i1p1d1’,  ‘r2i1p1d1’
   - `r` for realization, `i` for initialization, `p` for physics, and `f` for forcing
-- General variable category:
+- `general variable category`
 
 | Acronym | Spelled Out Version                   |
 |---------|-------------------------------|
@@ -38,7 +38,7 @@ Use the prepare_data.py file to generate training-ready data files for the emula
 | Oday    | Oceanic Daily                 |
 | Eday    | Earth Daily                   |
 
-- variable:
+- `variable`
 
 **List of Climate Variables**
 | Acronym     | Spelled Out Version                              |
