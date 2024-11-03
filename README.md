@@ -38,8 +38,9 @@ Use the prepare_data.py file to generate training-ready data files for the emula
 | Oday    | Oceanic Daily                 |
 | Eday    | Earth Daily                   |
 
-- variable: 
+- variable:
 
+**List of Climate Variables**
 | Acronym     | Spelled Out Version                              |
 |-------------|-------------------------------------------|
 | prc         | Convective Precipitation                  |
