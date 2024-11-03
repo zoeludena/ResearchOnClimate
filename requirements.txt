@@ -1,0 +1,9 @@
+siphon
+pandas
+xarray
+dask[distributed]
+matplotlib
+cartopy
+numpy
+eofs
+esem
