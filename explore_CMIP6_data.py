@@ -319,3 +319,40 @@ plt.show()
 # Example Usage:
 # clt = get_DAMIP('clt', 'r1i1p1f1')
 # average_variable_eda(clt, 'clt', 'Total Cloud Fraction')
+
+# Additional stuff from Eric's code.
+'''
+prsn = get_data('prsn', 'historical', 'r1i1p1f1')
+
+prsn.sel(time=slice('2005','2015')).mean('time').plot(
+    transform=ccrs.PlateCarree(),
+    subplot_kws={"projection": ccrs.PlateCarree()},
+    cmap='Purples'
+)
+
+plt.title('Mean Snowfall Flux (2005-2015)')
+plt.gca().coastlines()
+
+plt.show()
+
+(prsn.sel(time=slice('2005','2015')).mean('time') - prsn.sel(time=slice('1850','1900')).mean('time')).plot(
+    transform=ccrs.PlateCarree(),
+    subplot_kws={"projection": ccrs.PlateCarree()},
+    cmap="coolwarm_r",
+)
+
+plt.title('Change in Global Snowfall Flux (1850-1900 to 2005-2015)')
+plt.gca().coastlines()
+
+plt.show()
+
+prsn_timeseries = prsn.weighted(weights).mean(['lat', 'lon'])
+yearly_prsn = prsn_timeseries.groupby("time.year").mean()
+
+yearly_prsn.plot(color='paleturquoise')
+
+plt.grid()
+plt.title('Yearly Averaged Snowfall Flux 1850-Present')
+
+plt.show()
+'''
