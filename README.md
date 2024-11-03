@@ -87,6 +87,7 @@ Use the prepare_data.py file to generate training-ready data files for the emula
   - E.g., ‘r1i1p1f1’, ‘r2i1p1d1’,  ‘r2i1p1d1’
   - r for realization, i for initialization, p for physics, and f for forcing
 - General variable category:
+
 | Acronym | Spelled Out Version                   |
 |---------|-------------------------------|
 | Amon    | Atmospheric Month             |
