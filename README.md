@@ -96,4 +96,4 @@ Use the prepare_data.py file to generate training-ready data files for the emula
 | Oday    | Oceanic Daily                 |
 | Eday    | Earth Daily                   |
 
-variable: see List of Variables
+- variable: see List of Variables
