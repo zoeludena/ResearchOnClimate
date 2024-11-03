@@ -12,7 +12,33 @@ Run “pip install -r requirements.txt” to download any missing Python depende
 
 Run the explore_CMIP6_data.py file to generate a variety of graphs of the historical_r1i1p1f1 model output data. Can also use this file as an example of how to generate new spatial plots of any other variables.
 
-**List of Variables**
+**Prepare Data for Model Input**
+
+Use the prepare_data.py file to generate training-ready data files for the emulators. The preprocessing includes variable selection, annual averaging, and feature derivations (ie. diurnal temperature range = tasmax - tasmin).
+
+**Data storage structure**
+
+`/glade/collections/cmip/CMIP6/{MIP}/NCC/NorESM2-LM/{experiment}/{member}/{general variable category}/{variable}/*/*/{variable}/*.nc`
+
+- MIP (Model Intercomparison Projects) : 'CMIP', 'DAMIP', 'ScenarioMIP', 'AerChemMIP'
+- experiment: 
+  - CMIP: '1pctCO2', 'abrupt-4xCO2', 'historical', 'piControl'
+  - DAMIP: 'hist-GHG', 'hist-aer'
+  - ScenarioMIP: 'ssp126', 'ssp245', 'ssp370', 'ssp370-lowNTCF', 'ssp585'
+- member:
+  - E.g., ‘r1i1p1f1’, ‘r2i1p1d1’,  ‘r2i1p1d1’
+  - `r` for realization, `i` for initialization, `p` for physics, and `f` for forcing
+- General variable category:
+
+| Acronym | Spelled Out Version                   |
+|---------|-------------------------------|
+| Amon    | Atmospheric Month             |
+| Omon    | Oceanic Month                 |
+| day     | Daily                         |
+| Oday    | Oceanic Daily                 |
+| Eday    | Earth Daily                   |
+
+- variable: 
 
 | Acronym     | Spelled Out Version                              |
 |-------------|-------------------------------------------|
@@ -69,31 +95,3 @@ Run the explore_CMIP6_data.py file to generate a variety of graphs of the histor
 | rsut        | Top-of-Atmosphere Upwelling Shortwave Radiation |
 | ts          | Surface Temperature                       |
 | rsdscs      | Clear-Sky Surface Downwelling Shortwave Radiation |
-
-**Prepare Data for Model Input**
-
-Use the prepare_data.py file to generate training-ready data files for the emulators. The preprocessing includes variable selection, annual averaging, and feature derivations (ie. diurnal temperature range = tasmax - tasmin).
-
-**Data storage structure**
-
-`/glade/collections/cmip/CMIP6/{MIP}/NCC/NorESM2-LM/{experiment}/{member}/{general variable category}/{variable}/*/*/{variable}/*.nc`
-
-- MIP (Model Intercomparison Projects) : 'CMIP', 'DAMIP', 'ScenarioMIP', 'AerChemMIP'
-- experiment: 
-  - CMIP: '1pctCO2', 'abrupt-4xCO2', 'historical', 'piControl'
-  - DAMIP: 'hist-GHG', 'hist-aer'
-  - ScenarioMIP: 'ssp126', 'ssp245', 'ssp370', 'ssp370-lowNTCF', 'ssp585'
-- member:
-  - E.g., ‘r1i1p1f1’, ‘r2i1p1d1’,  ‘r2i1p1d1’
-  - `r` for realization, `i` for initialization, `p` for physics, and `f` for forcing
-- General variable category:
-
-| Acronym | Spelled Out Version                   |
-|---------|-------------------------------|
-| Amon    | Atmospheric Month             |
-| Omon    | Oceanic Month                 |
-| day     | Daily                         |
-| Oday    | Oceanic Daily                 |
-| Eday    | Earth Daily                   |
-
-- variable: see List of Variables
