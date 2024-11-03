@@ -320,7 +320,7 @@ plt.show()
 # clt = get_DAMIP('clt', 'r1i1p1f1')
 # average_variable_eda(clt, 'clt', 'Total Cloud Fraction')
 
-# Additional stuff from Eric's code.
+# Additional stuff from Eric's code. Just includes snowfall flux data.
 '''
 prsn = get_data('prsn', 'historical', 'r1i1p1f1')
 
