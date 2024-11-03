@@ -7,3 +7,4 @@ cartopy
 numpy
 eofs
 esem
+gpflow
