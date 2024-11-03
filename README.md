@@ -1,16 +1,16 @@
 # ResearchOnClimate
 
-Dependencies
+**Dependencies**
 Users are encouraged to use NCAR Casper Login*.
 Data is available from the sixth Coupled Model Intercomparison Product (CMIP6). It is publicly archived and available, but the data is readily available on Casper. Here is a link to the data on the Earth System Grid Federation Portal at Centre for Environmental Data Analysis and the cloud.
 Run “pip install -r requirements.txt” to download any missing Python dependencies.
 
 (*NCAR Casper Login Aside: You can create an account by following the directions on the Casper website.)
 
-Exploratory Data Analysis: 
+**Exploratory Data Analysis**
 Run the explore_CMIP6_data.py file to generate a variety of graphs of the historical_r1i1p1f1 model output data. Can also use this file as an example of how to generate new spatial plots of any other variables.
 
-List of Variables:
+**List of Variables**
 | Acronym     | Spelled Out Version                              |
 |-------------|-------------------------------------------|
 | prc         | Convective Precipitation                  |
@@ -67,10 +67,10 @@ List of Variables:
 | ts          | Surface Temperature                       |
 | rsdscs      | Clear-Sky Surface Downwelling Shortwave Radiation |
 
-Prepare Data for Model Input:
+**Prepare Data for Model Input**
 Use the prepare_data.py file to generate training-ready data files for the emulators. The preprocessing includes variable selection, annual averaging, and feature derivations (ie. diurnal temperature range = tasmax - tasmin).
 
-Data storage structure:
+**Data storage structure**
 `/glade/collections/cmip/CMIP6/{MIP}/NCC/NorESM2-LM/{experiment}/{member}/{general variable category}/{variable}/*/*/{variable}/*.nc`
 
 MIP (Model Intercomparison Projects) : 'CMIP', 'DAMIP', 'ScenarioMIP', 'AerChemMIP'
