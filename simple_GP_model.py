@@ -129,8 +129,10 @@ with plt.style.context("dark_background"):
     ax = plt.axes(projection=ccrs.PlateCarree())
     tas_truth.sel(time=2050).plot(cmap="coolwarm", norm=divnorm,
                                   cbar_kwargs={"label":"Temperature change / K"})
-    ax.set_title("True 2050")
+    ax.set_title("tas True 2050")
     ax.coastlines()
+
+plt.show()
 
 # tas Plot (Emulated)
 
@@ -138,8 +140,54 @@ with plt.style.context("dark_background"):
     ax = plt.axes(projection=ccrs.PlateCarree())
     m_tas.sel(sample=35).plot(cmap="coolwarm", norm=divnorm,
                              cbar_kwargs={"label":"Temperature change / K"})
-    ax.set_title("Emulated 2050")
+    ax.set_title("tas Emulated 2050")
     ax.coastlines()
+
+plt.show()
+
+from matplotlib import colors
+divnorm=colors.TwoSlopeNorm(vmin=-2., vcenter=0., vmax=5)
+
+with plt.style.context("dark_background"):
+    ax = plt.axes(projection=ccrs.PlateCarree())
+    pr_truth.sel(time=2050).plot(cmap="coolwarm", norm=divnorm,
+                                  cbar_kwargs={"label":"Precipitation change"})
+    ax.set_title("pr True 2050")
+    ax.coastlines()
+
+plt.show()
+
+with plt.style.context("dark_background"):
+    ax = plt.axes(projection=ccrs.PlateCarree())
+    m_pr.sel(sample=35).plot(cmap="coolwarm", norm=divnorm,
+                             cbar_kwargs={"label":"Precipitation change"})
+    ax.set_title("pr Emulated 2050")
+    ax.coastlines()
+
+plt.show()
+
+from matplotlib import colors
+divnorm=colors.TwoSlopeNorm(vmin=-2., vcenter=0., vmax=5)
+
+with plt.style.context("dark_background"):
+    ax = plt.axes(projection=ccrs.PlateCarree())
+    dtr_truth.sel(time=2050).plot(cmap="coolwarm", norm=divnorm,
+                                  cbar_kwargs={"label":"Diurnal Temperature Range change / K"})
+    ax.set_title("dtr True 2050")
+    ax.coastlines()
+
+plt.show()
+
+with plt.style.context("dark_background"):
+    ax = plt.axes(projection=ccrs.PlateCarree())
+    m_dtr.sel(sample=35).plot(cmap="coolwarm", norm=divnorm,
+                             cbar_kwargs={"label":"Diurnal Temperature Range change / K"})
+    ax.set_title("dtr Emulated 2050")
+    ax.coastlines()
+
+plt.show()
+
+
 
 # Specific Year RMSE tas between truth and prediction for original model (default kernel)
 
@@ -211,13 +259,11 @@ def testing(kernels, op):
 
     divnorm=colors.TwoSlopeNorm(vmin=-2., vcenter=0., vmax=5)
 
-    # tas
-
     with plt.style.context("dark_background"):
         ax = plt.axes(projection=ccrs.PlateCarree())
         tas_truth.sel(time=2050).plot(cmap="coolwarm", norm=divnorm,
                                       cbar_kwargs={"label":"Temperature change / K"})
-        ax.set_title("True 2050")
+        ax.set_title("tas True 2050")
         ax.coastlines()
 
     plt.show()
@@ -226,36 +272,47 @@ def testing(kernels, op):
         ax = plt.axes(projection=ccrs.PlateCarree())
         m_tas.sel(sample=35).plot(cmap="coolwarm", norm=divnorm,
                                  cbar_kwargs={"label":"Temperature change / K"})
-        ax.set_title("Emulated 2050")
+        ax.set_title("tas Emulated 2050")
         ax.coastlines()
 
     plt.show()
 
-    # # pr
+    with plt.style.context("dark_background"):
+        ax = plt.axes(projection=ccrs.PlateCarree())
+        pr_truth.sel(time=2050).plot(cmap="coolwarm", norm=divnorm,
+                                      cbar_kwargs={"label":"Precipitation change"})
+        ax.set_title("pr True 2050")
+        ax.coastlines()
 
-    # with plt.style.context("dark_background"):
-    #     ax = plt.axes(projection=ccrs.PlateCarree())
-    #     pr_truth.sel(time=2050).plot(cmap="coolwarm", norm=divnorm,
-    #                                   cbar_kwargs={"label":"Temperature change / K"})
-    #     ax.set_title("True 2050")
-    #     ax.coastlines()
+    plt.show()
 
-    # plt.show()
+    with plt.style.context("dark_background"):
+        ax = plt.axes(projection=ccrs.PlateCarree())
+        m_pr.sel(sample=35).plot(cmap="coolwarm", norm=divnorm,
+                                 cbar_kwargs={"label":"Precipitation change"})
+        ax.set_title("pr Emulated 2050")
+        ax.coastlines()
 
-    # with plt.style.context("dark_background"):
-    #     ax = plt.axes(projection=ccrs.PlateCarree())
-    #     m_pr.sel(sample=35).plot(cmap="coolwarm", norm=divnorm,
-    #                              cbar_kwargs={"label":"Temperature change / K"})
-    #     ax.set_title("Emulated 2050")
-    #     ax.coastlines()
+    plt.show()
 
-    # plt.show()
+    with plt.style.context("dark_background"):
+        ax = plt.axes(projection=ccrs.PlateCarree())
+        dtr_truth.sel(time=2050).plot(cmap="coolwarm", norm=divnorm,
+                                      cbar_kwargs={"label":"Diurnal Temperature Range change / K"})
+        ax.set_title("dtr True 2050")
+        ax.coastlines()
 
-    # # pr90
+    plt.show()
 
+    with plt.style.context("dark_background"):
+        ax = plt.axes(projection=ccrs.PlateCarree())
+        m_dtr.sel(sample=35).plot(cmap="coolwarm", norm=divnorm,
+                                 cbar_kwargs={"label":"Diurnal Temperature Range change / K"})
+        ax.set_title("dtr Emulated 2050")
+        ax.coastlines()
 
+    plt.show()
     return
-
 # Examples:
 
 testing(["Linear"], "add")
