@@ -145,6 +145,8 @@ with plt.style.context("dark_background"):
 
 plt.show()
 
+# pr plot (Truth)
+
 from matplotlib import colors
 divnorm=colors.TwoSlopeNorm(vmin=-2., vcenter=0., vmax=5)
 
@@ -157,6 +159,8 @@ with plt.style.context("dark_background"):
 
 plt.show()
 
+# pr plot (Emulated)
+
 with plt.style.context("dark_background"):
     ax = plt.axes(projection=ccrs.PlateCarree())
     m_pr.sel(sample=35).plot(cmap="coolwarm", norm=divnorm,
@@ -165,6 +169,8 @@ with plt.style.context("dark_background"):
     ax.coastlines()
 
 plt.show()
+
+# dtr plot (Truth)
 
 from matplotlib import colors
 divnorm=colors.TwoSlopeNorm(vmin=-2., vcenter=0., vmax=5)
@@ -178,6 +184,8 @@ with plt.style.context("dark_background"):
 
 plt.show()
 
+# dtr plot (Emulated)
+
 with plt.style.context("dark_background"):
     ax = plt.axes(projection=ccrs.PlateCarree())
     m_dtr.sel(sample=35).plot(cmap="coolwarm", norm=divnorm,
@@ -186,8 +194,6 @@ with plt.style.context("dark_background"):
     ax.coastlines()
 
 plt.show()
-
-
 
 # Specific Year RMSE tas between truth and prediction for original model (default kernel)
 
@@ -224,6 +230,8 @@ def testing(kernels, op):
 
     This function prints the difference of the Original's RMSE - New RMSE
     """
+
+    # Making all of the GP models
     tas_gp = gp_model(leading_historical_inputs, Y["tas"], kernel=kernels, kernel_op = op)
     tas_gp.train()
     pr_gp = gp_model(leading_historical_inputs, Y["pr"], kernel=kernels, kernel_op = op)
@@ -232,11 +240,14 @@ def testing(kernels, op):
     dtr_gp.train()
     pr90_gp = gp_model(leading_historical_inputs, Y["pr90"], kernel=kernels, kernel_op = op)
     pr90_gp.train()
+
+    # Making predictions with the models
     m_tas, _ = tas_gp.predict(test_inputs)
     m_pr, _ = pr_gp.predict(test_inputs)
     m_pr90, _ = pr90_gp.predict(test_inputs)
     m_dtr, _ = dtr_gp.predict(test_inputs)
 
+    #Comparing the models to the original (default)
     print("tas\n")
     print(f"RMSE at 2015 Diff: {np.round(orig_tas_2015 - get_rmse(tas_truth[0], m_tas[0]), 4)}")
     print(f"RMSE at 2050 Diff: {np.round(orig_tas_2050 - get_rmse(tas_truth[35], m_tas[35]), 4)}")
@@ -256,6 +267,8 @@ def testing(kernels, op):
     print(f"RMSE at 2015 Diff: {np.round(orig_pr90_2015 - get_rmse(pr90_truth[0], m_pr90[0]), 4)}")
     print(f"RMSE at 2050 Diff: {np.round(orig_pr90_2050 - get_rmse(pr90_truth[35], m_pr90[35]), 4)}")
     print(f"RMSE at 2100 Diff: {np.round(orig_pr90_2100 - get_rmse(pr90_truth[85], m_pr90[85]), 4)}")
+
+    # Plotting new model under the truth!
 
     divnorm=colors.TwoSlopeNorm(vmin=-2., vcenter=0., vmax=5)
 
@@ -313,7 +326,8 @@ def testing(kernels, op):
 
     plt.show()
     return
-# Examples:
+
+# Examples of using the function:
 
 testing(["Linear"], "add")
 
