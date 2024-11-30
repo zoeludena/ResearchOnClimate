@@ -211,6 +211,8 @@ def testing(kernels, op):
 
     divnorm=colors.TwoSlopeNorm(vmin=-2., vcenter=0., vmax=5)
 
+    # tas
+
     with plt.style.context("dark_background"):
         ax = plt.axes(projection=ccrs.PlateCarree())
         tas_truth.sel(time=2050).plot(cmap="coolwarm", norm=divnorm,
@@ -228,6 +230,30 @@ def testing(kernels, op):
         ax.coastlines()
 
     plt.show()
+
+    # # pr
+
+    # with plt.style.context("dark_background"):
+    #     ax = plt.axes(projection=ccrs.PlateCarree())
+    #     pr_truth.sel(time=2050).plot(cmap="coolwarm", norm=divnorm,
+    #                                   cbar_kwargs={"label":"Temperature change / K"})
+    #     ax.set_title("True 2050")
+    #     ax.coastlines()
+
+    # plt.show()
+
+    # with plt.style.context("dark_background"):
+    #     ax = plt.axes(projection=ccrs.PlateCarree())
+    #     m_pr.sel(sample=35).plot(cmap="coolwarm", norm=divnorm,
+    #                              cbar_kwargs={"label":"Temperature change / K"})
+    #     ax.set_title("Emulated 2050")
+    #     ax.coastlines()
+
+    # plt.show()
+
+    # # pr90
+
+
     return
 
 # Examples:
