@@ -109,12 +109,13 @@ The processed training, validation and test data can be obtained from [Zenodo](h
 
 **Models**
 
+- Download [`utils.py`](utils.py) and upload onto Casper.
 - Pattern Scaling
   - **TODO**
 - Gaussian Process
   - **TODO**
 - Random Forest Model
-  - Upload `RF_model_ESEm.ipynb` onto Casper.
-  - Place the notebook in the same directory as the `.nc` files.
+  - Download [`RF_model_ESEm.py`](RF_model_ESEm.py) and upload onto Casper.
+  - Place `utils.py` and `RF_model_ESEm.ipynb` in the same directory as the `.nc` files.
   - Run the notebook to see the random forest model and outputs.
 
