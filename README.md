@@ -1,7 +1,5 @@
 # ResearchOnClimate
 
-**Dependencies**
-
 ## Dependencies
 
 - Users are encouraged to use NCAR Casper Login*.
@@ -101,13 +99,18 @@ Use the `prepare_data.py` file to generate training-ready data files for the emu
 
 ## Emulator Replication
 
-**Data**
+**Data Access**
 
 The processed training, validation and test data can be obtained from [Zenodo](https://doi.org/10.5281/zenodo.5196512).
 
-**Instruction**
+- Download `test.tar.gz` and `train_val.tar.gz`.
+- Decompressing the two files
+- Upload all `.nc` files in `train_val` and `test` onto CASPER and place them in the same directory.
 
-- Download `test.tar.gz` and `train_val.tar.gz`
-- After decompressing the two files, place all `.nc` files in the same directory.
-- Run **TODO:Notebooks** for corresponding models and inspect outputs.
+**Models**
+
+- Random Forest Model
+  - Upload `RF_model_ESEm.ipynb` onto Casper.
+  - Place the notebook in the same directory as the `.nc` files.
+  - Run the notebook to see the random forest model and outputs.
 
