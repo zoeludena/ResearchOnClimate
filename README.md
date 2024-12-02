@@ -109,7 +109,7 @@ The processed training, validation and test data can be obtained from [Zenodo](h
 
 **Models**
 
-- Random Forest Model
+- Random Forests Model
   - Upload `RF_model_ESEm.ipynb` onto Casper.
   - Place the notebook in the same directory as the `.nc` files.
   - Run the notebook to see the random forest model and outputs.
