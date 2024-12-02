@@ -109,6 +109,10 @@ The processed training, validation and test data can be obtained from [Zenodo](h
 
 **Models**
 
+- Pattern Scaling
+  - **TODO**
+- Gaussian Process
+  - **TODO**
 - Random Forest Model
   - Upload `RF_model_ESEm.ipynb` onto Casper.
   - Place the notebook in the same directory as the `.nc` files.
