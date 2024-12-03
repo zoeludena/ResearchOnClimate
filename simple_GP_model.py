@@ -195,43 +195,14 @@ with plt.style.context("dark_background"):
 
 plt.show()
 
-# Specific Year RMSE tas between truth and prediction for original model (default kernel)
-
-def get_rmse(truth, pred):
-    weights = np.cos(np.deg2rad(truth.lat))
-    return np.sqrt(((truth-pred)**2).weighted(weights).mean(['lat', 'lon'])).data
-
-orig_tas_2015 = get_rmse(tas_truth[0], m_tas[0])
-orig_tas_2050 = get_rmse(tas_truth[35], m_tas[35])
-orig_tas_2100 = get_rmse(tas_truth[85], m_tas[85])
-
-# dtr
-
-orig_dtr_2015 = get_rmse(dtr_truth[0], m_dtr[0])
-orig_dtr_2050 = get_rmse(dtr_truth[35], m_dtr[35])
-orig_dtr_2100 = get_rmse(dtr_truth[85], m_dtr[85])
-
-# pr
-
-orig_pr_2015 = get_rmse(pr_truth[0], m_pr[0])
-orig_pr_2050 = get_rmse(pr_truth[35], m_pr[35])
-orig_pr_2100 = get_rmse(pr_truth[85], m_pr[85])
-
-orig_pr90_2015 = get_rmse(pr90_truth[0], m_pr90[0])
-orig_pr90_2050 = get_rmse(pr90_truth[35], m_pr90[35])
-orig_pr90_2100 = get_rmse(pr90_truth[85], m_pr90[85])
-
-# This function allows you to compare RMSE for different models and the original one (default kernel)
-
-def testing(kernels, op):
+def view_model_rmse(kernels, op):
     """
     kernels: A list of strings that contain the kernels to be used in the model
     op: A string that says how the kernels should be added together
 
     This function prints the difference of the Original's RMSE - New RMSE
     """
-
-    # Making all of the GP models
+    # Train the model
     tas_gp = gp_model(leading_historical_inputs, Y["tas"], kernel=kernels, kernel_op = op)
     tas_gp.train()
     pr_gp = gp_model(leading_historical_inputs, Y["pr"], kernel=kernels, kernel_op = op)
@@ -241,108 +212,242 @@ def testing(kernels, op):
     pr90_gp = gp_model(leading_historical_inputs, Y["pr90"], kernel=kernels, kernel_op = op)
     pr90_gp.train()
 
-    # Making predictions with the models
+    # Make predictions
     m_tas, _ = tas_gp.predict(test_inputs)
     m_pr, _ = pr_gp.predict(test_inputs)
     m_pr90, _ = pr90_gp.predict(test_inputs)
     m_dtr, _ = dtr_gp.predict(test_inputs)
-
-    #Comparing the models to the original (default)
-    print("tas\n")
-    print(f"RMSE at 2015 Diff: {np.round(orig_tas_2015 - get_rmse(tas_truth[0], m_tas[0]), 4)}")
-    print(f"RMSE at 2050 Diff: {np.round(orig_tas_2050 - get_rmse(tas_truth[35], m_tas[35]), 4)}")
-    print(f"RMSE at 2100 Diff: {np.round(orig_tas_2100 - get_rmse(tas_truth[85], m_tas[85]), 4)}")
-
-    print("\ndtr\n")
-    print(f"RMSE at 2015 Diff: {np.round(orig_dtr_2015 - get_rmse(dtr_truth[0], m_dtr[0]), 4)}")
-    print(f"RMSE at 2050 Diff: {np.round(orig_dtr_2050 - get_rmse(dtr_truth[35], m_dtr[35]), 4)}")
-    print(f"RMSE at 2100 Diff: {np.round(orig_dtr_2100 - get_rmse(dtr_truth[85], m_dtr[85]), 4)}")
-
-    print("\npr\n")
-    print(f"RMSE at 2015 Diff: {np.round(orig_pr_2015 - get_rmse(pr_truth[0], m_pr[0]), 4)}")
-    print(f"RMSE at 2050 Diff: {np.round(orig_pr_2050 - get_rmse(pr_truth[35], m_pr[35]), 4)}")
-    print(f"RMSE at 2100 Diff: {np.round(orig_pr_2100 - get_rmse(pr_truth[85], m_pr[85]), 4)}")
-
-    print("\npr_90\n")
-    print(f"RMSE at 2015 Diff: {np.round(orig_pr90_2015 - get_rmse(pr90_truth[0], m_pr90[0]), 4)}")
-    print(f"RMSE at 2050 Diff: {np.round(orig_pr90_2050 - get_rmse(pr90_truth[35], m_pr90[35]), 4)}")
-    print(f"RMSE at 2100 Diff: {np.round(orig_pr90_2100 - get_rmse(pr90_truth[85], m_pr90[85]), 4)}")
-
-    # Plotting new model under the truth!
-
-    divnorm=colors.TwoSlopeNorm(vmin=-2., vcenter=0., vmax=5)
-
-    with plt.style.context("dark_background"):
-        ax = plt.axes(projection=ccrs.PlateCarree())
-        tas_truth.sel(time=2050).plot(cmap="coolwarm", norm=divnorm,
-                                      cbar_kwargs={"label":"Temperature change / K"})
-        ax.set_title("tas True 2050")
-        ax.coastlines()
-
-    plt.show()
-
-    with plt.style.context("dark_background"):
-        ax = plt.axes(projection=ccrs.PlateCarree())
-        m_tas.sel(sample=35).plot(cmap="coolwarm", norm=divnorm,
-                                 cbar_kwargs={"label":"Temperature change / K"})
-        ax.set_title("tas Emulated 2050")
-        ax.coastlines()
-
-    plt.show()
-
-    with plt.style.context("dark_background"):
-        ax = plt.axes(projection=ccrs.PlateCarree())
-        pr_truth.sel(time=2050).plot(cmap="coolwarm", norm=divnorm,
-                                      cbar_kwargs={"label":"Precipitation change"})
-        ax.set_title("pr True 2050")
-        ax.coastlines()
-
-    plt.show()
-
-    with plt.style.context("dark_background"):
-        ax = plt.axes(projection=ccrs.PlateCarree())
-        m_pr.sel(sample=35).plot(cmap="coolwarm", norm=divnorm,
-                                 cbar_kwargs={"label":"Precipitation change"})
-        ax.set_title("pr Emulated 2050")
-        ax.coastlines()
-
-    plt.show()
-
-    with plt.style.context("dark_background"):
-        ax = plt.axes(projection=ccrs.PlateCarree())
-        dtr_truth.sel(time=2050).plot(cmap="coolwarm", norm=divnorm,
-                                      cbar_kwargs={"label":"Diurnal Temperature Range change / K"})
-        ax.set_title("dtr True 2050")
-        ax.coastlines()
-
-    plt.show()
-
-    with plt.style.context("dark_background"):
-        ax = plt.axes(projection=ccrs.PlateCarree())
-        m_dtr.sel(sample=35).plot(cmap="coolwarm", norm=divnorm,
-                                 cbar_kwargs={"label":"Diurnal Temperature Range change / K"})
-        ax.set_title("dtr Emulated 2050")
-        ax.coastlines()
-
-    plt.show()
+    
+    # Look at RMSE
+    print(f"RMSE for {kernels} combined with {op}: {get_rmse(tas_truth, m_tas)}")
+    print(f"RMSE for {kernels} combined with {op}: {get_rmse(dtr_truth, m_dtr)}")
+    print(f"RMSE for {kernels} combined with {op}: {get_rmse(pr_truth, m_pr)}")
+    print(f"RMSE for {kernels} combined with {op}: {get_rmse(pr90_truth, m_pr90)}")
     return
 
 # Examples of using the function:
 
-testing(["Linear"], "add")
+view_model_rmse(["Linear"], "add")
 
-testing(["RBF"], "add")
+view_model_rmse(["RBF"], "add")
 
-testing(["Polynomial"], "add")
+view_model_rmse(["Polynomial"], "add")
 
-testing(["Linear", "RBF"], "add")
+view_model_rmse(["Linear", "RBF"], "add")
 
-testing(["Linear", "Polynomial"], "add")
+view_model_rmse(["Linear", "Polynomial"], "add")
 
-testing(["Polynomial", "RBF"], "add")
+view_model_rmse(["Polynomial", "RBF"], "add")
 
-testing(["Linear", "RBF"], "mul")
+view_model_rmse(["Linear", "RBF"], "mul")
 
-testing(["Linear", "Polynomial"], "mul")
+view_model_rmse(["Linear", "Polynomial"], "mul")
 
-testing(["Polynomial", "RBF"], "mul")
+view_model_rmse(["Polynomial", "RBF"], "mul")
+
+# We found Linear + Polynomial worked best and was closest to default
+
+kernels = ["Linear", "Polynomial"]
+op = "add"
+
+tas_gp = gp_model(leading_historical_inputs, Y["tas"], kernel=kernels, kernel_op = op)
+tas_gp.train()
+pr_gp = gp_model(leading_historical_inputs, Y["pr"], kernel=kernels, kernel_op = op)
+pr_gp.train()
+dtr_gp = gp_model(leading_historical_inputs, Y["diurnal_temperature_range"], kernel=kernels, kernel_op = op)
+dtr_gp.train()
+pr90_gp = gp_model(leading_historical_inputs, Y["pr90"], kernel=kernels, kernel_op = op)
+pr90_gp.train()
+
+m_tas, _ = tas_gp.predict(test_inputs)
+m_pr, _ = pr_gp.predict(test_inputs)
+m_pr90, _ = pr90_gp.predict(test_inputs)
+m_dtr, _ = dtr_gp.predict(test_inputs)
+
+# tas plot
+
+# Create a figure with three side-by-side subplots
+fig, axes = plt.subplots(
+    nrows=1, ncols=3, figsize=(21, 6),
+    subplot_kw={"projection": ccrs.PlateCarree()}
+)
+
+# Plot the true projection
+ax = axes[0]
+tas_truth.sel(time=2050).plot(
+    ax=ax, cmap="coolwarm", norm=divnorm,
+    cbar_kwargs={"label": "Temperature change / K"}
+)
+ax.set_title("True 2050")
+ax.coastlines()
+
+# Plot the emulated result
+ax = axes[1]
+m_tas.sel(sample=35).plot(
+    ax=ax, cmap="coolwarm", norm=divnorm,
+    cbar_kwargs={"label": "Temperature change / K"}
+)
+ax.set_title("Emulated 2050")
+ax.coastlines()
+
+# Plot the difference (True - Emulated)
+ax = axes[2]
+difference = tas_truth.sel(time=2050) - m_tas.sel(sample=35)  # Calculate the difference
+difference.plot(
+    ax=ax, cmap="bwr",  # Use a diverging colormap to highlight positive/negative differences
+    cbar_kwargs={"label": "Difference in Temperature change / K"}
+)
+ax.set_title("Difference (True - Emulated)")
+ax.coastlines()
+
+# Add a main title
+fig.suptitle("tas (Near-Surface Air Temperature)", fontsize=18, x=0.5)
+
+# Adjust layout for better appearance
+fig.tight_layout()
+
+# Save the figure
+fig.savefig("gp_tas_comparison_with_difference.png", dpi=250, bbox_inches="tight")
+
+plt.show()
+
+# dtr plot
+
+# Create a figure with three side-by-side subplots
+fig, axes = plt.subplots(
+    nrows=1, ncols=3, figsize=(21, 6),
+    subplot_kw={"projection": ccrs.PlateCarree()}
+)
+
+# Plot the true projection
+ax = axes[0]
+dtr_truth.sel(time=2050).plot(
+    ax=ax, cmap="coolwarm", norm=divnorm,
+    cbar_kwargs={"label": "Temperature change / K"}
+)
+ax.set_title("True 2050")
+ax.coastlines()
+
+# Plot the emulated result
+ax = axes[1]
+m_dtr.sel(sample=35).plot(
+    ax=ax, cmap="coolwarm", norm=divnorm,
+    cbar_kwargs={"label": "Temperature change / K"}
+)
+ax.set_title("Emulated 2050")
+ax.coastlines()
+
+# Plot the difference (True - Emulated)
+ax = axes[2]
+difference = dtr_truth.sel(time=2050) - m_dtr.sel(sample=35)  # Calculate the difference
+difference.plot(
+    ax=ax, cmap="bwr",  # Use a diverging colormap to highlight positive/negative differences
+    cbar_kwargs={"label": "Difference in Temperature change / K"}
+)
+ax.set_title("Difference (True - Emulated)")
+ax.coastlines()
+
+# Add a main title
+fig.suptitle("dtr (Diurnal Temperature Range)", fontsize=18, x=0.5)
+
+# Adjust layout for better appearance
+fig.tight_layout()
+
+# Save the figure
+fig.savefig("gp_dtr_comparison_with_difference.png", dpi=250, bbox_inches="tight")
+
+plt.show()
+
+# pr plot
+
+# Create a figure with three side-by-side subplots
+fig, axes = plt.subplots(
+    nrows=1, ncols=3, figsize=(21, 6),
+    subplot_kw={"projection": ccrs.PlateCarree()}
+)
+
+# Plot the true projection
+ax = axes[0]
+pr_truth.sel(time=2050).plot(
+    ax=ax, cmap="coolwarm", norm=divnorm,
+    cbar_kwargs={"label": "Precipitation change / mm day-1"}
+)
+ax.set_title("True 2050")
+ax.coastlines()
+
+# Plot the emulated result
+ax = axes[1]
+m_dtr.sel(sample=35).plot(
+    ax=ax, cmap="coolwarm", norm=divnorm,
+    cbar_kwargs={"label": "Precipitation change / mm day-1"}
+)
+ax.set_title("Emulated 2050")
+ax.coastlines()
+
+# Plot the difference (True - Emulated)
+ax = axes[2]
+difference = dtr_truth.sel(time=2050) - m_dtr.sel(sample=35)  # Calculate the difference
+difference.plot(
+    ax=ax, cmap="bwr",  # Use a diverging colormap to highlight positive/negative differences
+    cbar_kwargs={"label": "Difference in Precipitation change / mm day-1"}
+)
+ax.set_title("Difference (True - Emulated)")
+ax.coastlines()
+
+# Add a main title
+fig.suptitle("pr (Precipitation)", fontsize=18, x=0.5)
+
+# Adjust layout for better appearance
+fig.tight_layout()
+
+# Save the figure
+fig.savefig("gp_pr_comparison_with_difference.png", dpi=250, bbox_inches="tight")
+
+plt.show()
+
+# pr90 plot
+
+# Create a figure with three side-by-side subplots
+fig, axes = plt.subplots(
+    nrows=1, ncols=3, figsize=(21, 6),
+    subplot_kw={"projection": ccrs.PlateCarree()}
+)
+
+# Plot the true projection
+ax = axes[0]
+pr90_truth.sel(time=2050).plot(
+    ax=ax, cmap="coolwarm", norm=divnorm,
+    cbar_kwargs={"label": "Precipitation change / mm day-1"}
+)
+ax.set_title("True 2050")
+ax.coastlines()
+
+# Plot the emulated result
+ax = axes[1]
+m_dtr.sel(sample=35).plot(
+    ax=ax, cmap="coolwarm", norm=divnorm,
+    cbar_kwargs={"label": "Precipitation change / mm day-1"}
+)
+ax.set_title("Emulated 2050")
+ax.coastlines()
+
+# Plot the difference (True - Emulated)
+ax = axes[2]
+difference = dtr_truth.sel(time=2050) - m_dtr.sel(sample=35)  # Calculate the difference
+difference.plot(
+    ax=ax, cmap="bwr",  # Use a diverging colormap to highlight positive/negative differences
+    cbar_kwargs={"label": "Difference in Precipitation change / mm day-1"}
+)
+ax.set_title("Difference (True - Emulated)")
+ax.coastlines()
+
+# Add a main title
+fig.suptitle("pr90 (90th percentile Precipitation)", fontsize=18, x=0.5)
+
+# Adjust layout for better appearance
+fig.tight_layout()
+
+# Save the figure
+fig.savefig("gp_pr90_comparison_with_difference.png", dpi=250, bbox_inches="tight")
+
+plt.show()
