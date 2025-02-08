@@ -111,7 +111,9 @@ The processed training, validation and test data can be obtained from [Zenodo](h
 
 - Download [`utils.py`](utils.py) and upload onto Casper.
 - Pattern Scaling
-  - **TODO**
+  - Download [`pattern_scaling_model.py`](pattern_scaling_model.py) and upload onto Casper.
+  - Place `utils.py` and `pattern_scaling_model.py` in the same directory as the `.nc` files.
+  - Run the notebook to see the pattern_scaling model and outputs.
 - Gaussian Process
   - Download [`simple_GP_model.py`](simple_GP_model.py) and upload onto Casper.
       - Make sure that `utils.py` is in the same location as `simple_GP_model.py`.
@@ -119,6 +121,6 @@ The processed training, validation and test data can be obtained from [Zenodo](h
   - Run the notebook to see the gaussian process model and outputs.
 - Random Forest Model
   - Download [`RF_model_ESEm.py`](RF_model_ESEm.py) and upload onto Casper.
-  - Place `utils.py` and `RF_model_ESEm.ipynb` in the same directory as the `.nc` files.
+  - Place `utils.py` and `RF_model_ESEm.py` in the same directory as the `.nc` files.
   - Run the notebook to see the random forest model and outputs.
 
